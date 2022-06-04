@@ -99,26 +99,27 @@ public class SinglyLinkedList<T extends Comparable<T>> {
     // NUEVOS METODOS
 
     // Elimina aquellos nodos de la lista que esten duplicados
-    import java.util.HashMap;
     public void deleteDuplicates() {
         if (isEmpty() || size == 1)
             return;
         } else {
             Node<T> actual = first;
-            // Diccionario con los valores distintos en la lista
-            // Uso un diccionario porque su complejidad de busqueda es constante
-            HashMap<T, Integer> diccionario = new HashMap<>();
-            // Solo importa el "key" de cada entrada en el diccionario, asi que su valor puede ser 0, nulo o cualquiera, no se usara
-            diccionario.put(actual.getValue(),0); // Introducimos el valor primero en la lista
-            for (int i = 0; i < size-1; i++) { // No contamos el ultimo valor porque si se salta el penultimo apuntara a null y no podra compararse su siguiente
-                // Busca el valor del nodo 2 en adelante en el diccionario
-                if (diccionario.get(actual.getNext().getValue()) != null) {
-                    // Si el valor esta, lo devolvera (o sea, not null)
-                    actual.setNext(actual.getNext().getNext()); // Entonces, el siguiente del nodo actual cambiara al siguiente siguiente
-                    size--; } // Y el tamano de la lista se reducira en 1
-                else { // Si el valor no esta en el diccionario
-                    diccionario.put(actual.getNext().getValue(),0); } // Se agregara para futuras comparaciones
-                actual = actual.getNext(); // Se actualiaza el valor actual al siguiente nodo en la lista
+            int elem = 1; // Numero de elementos a comparar, como evalueamos el siguiente al primero, siempre se evalua 1 elemento como minimo
+            
+            // Busca el valor del nodo 2 en adelante
+            for (int i = 1; i < size-1; i++) { // No contamos el ultimo valor porque si se salta el penultimo apuntara a null y no podra compararse su siguiente
+                // Compara el valor siguiente al actual con los anteriores en la lista
+                Node<T> anteriorN = getFirst(); // Empezando por el primero
+                int j = 0; // Contador
+                while (j < elem) { // Hasta uno anterior al que se encuentra
+                    if(actual.getNext().getValue().compareTo(anteriorN.getValue) != 0) { // Si son diferentes
+                        anteriorN = anteriorN.getNext(); // Compara con el siguiente
+                        j++; } // Cuenta una comparacin realizada
+                    else {
+                        actual.setNext(actual.getNext().getNext()); // Si ya esta repetido, el siguiente del actual sera el siguiente del siguiente
+                        break; } // Y se sale del bucle
+                }
+                actual = actual.getNext(); // Se actualiza el valor actual al siguiente nodo en la lista
             }
         }
     }
