@@ -1,4 +1,5 @@
 package com.example.project;
+import java.util.HashMap;
 
 public class SinglyLinkedList<T extends Comparable<T>> {
     private Node<T> first; // Primero nodo de la lista
@@ -99,7 +100,6 @@ public class SinglyLinkedList<T extends Comparable<T>> {
     // NUEVOS METODOS
 
     // Elimina aquellos nodos de la lista que esten duplicados
-    import java.util.HashMap;
     public void deleteDuplicates() {
         if (isEmpty() || size == 1) return;
         else {
