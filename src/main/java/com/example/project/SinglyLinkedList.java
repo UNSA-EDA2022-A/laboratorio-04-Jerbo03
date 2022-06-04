@@ -126,8 +126,7 @@ public class SinglyLinkedList<T extends Comparable<T>> {
     public void insertNth(T data, int position) {
     	if (position > size) { // Si la posicion es mayor al tamano entonces no cambiar nada
     		System.out.println("Fuera de rango.");
-    		return;} 
-    	size++; // Es seguro que se va a añadir un valor a la lista
+    		return;}
     	if (position == 0) {
     		addFirst(data);
     		return;} // Si se quiere poner al comienzo, llamar a la funcion ya creada
@@ -136,14 +135,17 @@ public class SinglyLinkedList<T extends Comparable<T>> {
     		anterior = anterior.getNext(); // E ir cambiandolo hasta llegar al anterior al cual se desea insertar
     	Node<T> nuevo = new Node<T>(data, anterior.getNext()); // Crear el nodo dandole como next el nodo que ocupa su lugar
     	anterior.setNext(nuevo); // Y setearlo como next del anterior
+	size++;
     }
 
     // Elimina el nodo de una posicion especifica de la lista
     public void deleteNth(int position) {
 	if (position >= size) { // Si la posicion es mayor al tamano entonces no cambiar nada
     		System.out.println("Fuera de rango.");
-    		return;} 
-	size--; // Es seguro que se va a eliminar un valor a la lista
+    		return;}
+	if (position == 0) {
+    		removeFirst();
+    		return;} // Si se quiere eliminar la primera, llamar a la funcion ya creada
 	if (position == size-1) {
     		removeLast();
     		return;} // Si se quiere eliminar al final, llamar a la funcion ya creada
@@ -151,6 +153,7 @@ public class SinglyLinkedList<T extends Comparable<T>> {
     	for (int i = 1; i < position; i++)
     		anterior = anterior.getNext(); // E ir cambiandolo hasta llegar al anterior al cual se desea eliminar
     	anterior.setNext(anterior.getNext().getNext()); // Y setearlo como next del anterior
+	size--;
     }
 
     public static void main(final String[] args) {
