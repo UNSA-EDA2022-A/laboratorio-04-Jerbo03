@@ -102,7 +102,8 @@ public class SinglyLinkedList<T extends Comparable<T>> {
     public void deleteDuplicates() {
         if (isEmpty() || size == 1)
             return;
-        } else {
+        }
+        else {
             Node<T> actual = first;
             int elem = 1; // Numero de elementos a comparar, como evalueamos el siguiente al primero, siempre se evalua 1 elemento como minimo
             
