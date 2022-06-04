@@ -120,7 +120,6 @@ public class SinglyLinkedList<T extends Comparable<T>> {
                         break; } // Y se sale del bucle
                 }
                 actual = actual.getNext(); // Se actualiza el valor actual al siguiente nodo en la lista
-                if (actual == null) return; // Si ya se llegó al útlimo, salir
                 elem++; // Y el numero de elementos a comparar
             }
         }
