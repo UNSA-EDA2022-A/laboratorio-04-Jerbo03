@@ -1,6 +1,6 @@
 package com.example.project;
 
-public class SinglyLinkedList<T> {
+public class SinglyLinkedList<T extends Comparable<T>> {
     private Node<T> first; // Primero nodo de la lista
     private int size; // Tamano de la lista
 
@@ -99,8 +99,28 @@ public class SinglyLinkedList<T> {
     // NUEVOS METODOS
 
     // Elimina aquellos nodos de la lista que esten duplicados
+    import java.util.HashMap;
     public void deleteDuplicates() {
-
+        if (isEmpty() || size == 1)
+            return;
+        } else {
+            Node<T> actual = first;
+            // Diccionario con los valores distintos en la lista
+            // Uso un diccionario porque su complejidad de búsqueda es constante
+            HashMap<T, Integer> diccionario = new HashMap<>();
+            // Solo importa el "key" de cada entrada en el diccionario, así que su valor puede ser 0, nulo o cualquiera, no se usará
+            diccionario.put(actual.getValue(),0); // Introducimos el valor primero en la lista
+            for (int i = 0; i < size-1; i++) { // No contamos el último valor porque si se salta el penúltimo apuntará a null y no podrá compararse su siguiente
+                // Busca el valor del nodo 2 en adelante en el diccionario
+                if (diccionario.get(actual.getNext().getValue()) != null) {
+                    // Si el valor está, lo devolverá (o sea, not null)
+                    actual.setNext(actual.getNext().getNext()); // Entonces, el siguiente del nodo actual cambiará al siguiente siguiente
+                    size--; } // Y el tamaño de la lista se reducira en 1
+                else { // Si el valor no está en el diccionario
+                    diccionario.put(actual.getNext().getValue(),0); } // Se agregará para futuras comparaciones
+                actual = actual.getNext(); // Se actualiaza el valor actual al siguiente nodo en la lista
+            }
+        }
     }
 
     // Inserta un nuevo nodo en una posicion especifica de la lista
