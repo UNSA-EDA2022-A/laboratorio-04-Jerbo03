@@ -99,6 +99,7 @@ public class SinglyLinkedList<T extends Comparable<T>> {
     // NUEVOS METODOS
 
     // Elimina aquellos nodos de la lista que esten duplicados
+    import java. util. HashMap;
     public void deleteDuplicates() {
         if (isEmpty() || size == 1) return;
         else {
