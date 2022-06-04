@@ -1,6 +1,7 @@
 package com.example.project;
+import java.util.HashMap;
 
-public class SinglyLinkedList<T> {
+public class SinglyLinkedList<T extends Comparable<T>> {
     private Node<T> first; // Primero nodo de la lista
     private int size; // Tamano de la lista
 
@@ -100,17 +101,55 @@ public class SinglyLinkedList<T> {
 
     // Elimina aquellos nodos de la lista que esten duplicados
     public void deleteDuplicates() {
-
+        if (isEmpty() || size == 1) return;
+        HashMap<T, Integer> dict = new HashMap<T, Integer>();
+        Node<T> actual = first;
+        dict.put(first.getValue(),0);
+        while (actual.getNext() != null) { // Si el valor actual es null entonces ya terminamos de leer la lista
+	    if (dict.get(actual.getNext().getValue()) != null) { // Buscar valor en el diccionario
+		actual.setNext(actual.getNext().getNext()); // Cambio de next
+    		size--; // Actualizar el valor del tamaño
+	    } else {
+		dict.put(actual.getNext().getValue(), 0); // Anadir nuevo valor al diccionario
+		actual = actual.getNext(); } // Cambio al siguiente nodo
+        }
     }
 
     // Inserta un nuevo nodo en una posicion especifica de la lista
     public void insertNth(T data, int position) {
-
+    	if (position > size) { // Si la posicion es mayor al tamano entonces no cambiar nada
+    		System.out.println("Fuera de rango.");
+    		return;}
+    	if (position == 0) {
+    		addFirst(data);
+    		return;} // Si se quiere poner al comienzo, llamar a la funcion ya creada
+	if (position == size) {
+    		addLast(data);
+    		return;} // Si se quiere poner al final, llamar a la funcion ya creada
+    	Node<T> anterior = first; // Si la posicion es mayor a 0, empezar por el primer nodo
+    	for (int i = 1; i < position; i++)
+    		anterior = anterior.getNext(); // E ir cambiandolo hasta llegar al anterior al cual se desea insertar
+    	Node<T> nuevo = new Node<T>(data, anterior.getNext()); // Crear el nodo dandole como next el nodo que ocupa su lugar
+    	anterior.setNext(nuevo); // Y setearlo como next del anterior
+	size++;
     }
 
     // Elimina el nodo de una posicion especifica de la lista
     public void deleteNth(int position) {
-
+	if (position >= size) { // Si la posicion es mayor al tamano entonces no cambiar nada
+    		System.out.println("Fuera de rango.");
+    		return;}
+	if (position == 0) {
+    		removeFirst();
+    		return;} // Si se quiere eliminar la primera, llamar a la funcion ya creada
+	if (position == size-1) {
+    		removeLast();
+    		return;} // Si se quiere eliminar al final, llamar a la funcion ya creada
+    	Node<T> anterior = first; // Si la posicion es valida, empezar por el primer nodo
+    	for (int i = 1; i < position; i++)
+    		anterior = anterior.getNext(); // E ir cambiandolo hasta llegar al anterior al cual se desea eliminar
+    	anterior.setNext(anterior.getNext().getNext()); // Y setearlo como next del anterior
+	size--;
     }
 
     public static void main(final String[] args) {
