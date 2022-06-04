@@ -115,7 +115,7 @@ public class SinglyLinkedList<T extends Comparable<T>> {
                 if (diccionario.get(actual.getNext().getValue()) != null) {
                     // Si el valor esta, lo devolvera (o sea, not null)
                     actual.setNext(actual.getNext().getNext()); // Entonces, el siguiente del nodo actual cambiara al siguiente siguiente
-                    size--; } // Y el tamaño de la lista se reducira en 1
+                    size--; } // Y el tamano de la lista se reducira en 1
                 else { // Si el valor no esta en el diccionario
                     diccionario.put(actual.getNext().getValue(),0); } // Se agregara para futuras comparaciones
                 actual = actual.getNext(); // Se actualiaza el valor actual al siguiente nodo en la lista
