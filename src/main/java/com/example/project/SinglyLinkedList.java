@@ -123,6 +123,9 @@ public class SinglyLinkedList<T extends Comparable<T>> {
     	if (position == 0) {
     		addFirst(data);
     		return;} // Si se quiere poner al comienzo, llamar a la funcion ya creada
+	if (position == size) {
+    		addLast(data);
+    		return;} // Si se quiere poner al final, llamar a la funcion ya creada
     	Node<T> anterior = first; // Si la posicion es mayor a 0, empezar por el primer nodo
     	for (int i = 1; i < position; i++)
     		anterior = anterior.getNext(); // E ir cambiandolo hasta llegar al anterior al cual se desea insertar
