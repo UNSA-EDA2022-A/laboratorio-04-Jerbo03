@@ -100,32 +100,21 @@ public class SinglyLinkedList<T extends Comparable<T>> {
 
     // Elimina aquellos nodos de la lista que esten duplicados
     public void deleteDuplicates() {
-        if (isEmpty() || size == 1)
-            return;
+        if (isEmpty() || size == 1) return;
         else {
             Node<T> actual = first;
-            
             // Busca el valor del nodo 2 en adelante
             while (actual != null) { // Si el valor actual es null entonces ya terminamos de leer la lista
-
                 Node<T> anteriorN = first; // Empezando por el primero
-                
                 /* Compara que:
                  * 1. No lleguemos al final de la lista para poder evaluar el nodo siguiente
-                 * 2. Que los objetos que estamos comparando no sean el mismo
-                */
+                 * 2. Que los objetos que estamos comparando no sean el mismo */
                 while (actual.getNext() != null && actual.getNext() != anteriorN) {
-                    
                     // Si el valor de alguno de los elementos anteriores al nodo siguiente del actual es igual al este
                     if(actual.getNext().getValue().compareTo(anteriorN.getValue()) == 0) {
-                        // Se "borra"
-                		actual.setNext(actual.getNext().getNext());
-                        // Y reinicia la comparación
-                		anteriorN = first;
-                	} else {
-                        // Si no, se prueba con el siguiente nodo
-                		anteriorN = anteriorN.getNext();
-                	}
+                		actual.setNext(actual.getNext().getNext()); // Se "borra"
+                		anteriorN = first; // Y reinicia la comparación
+                	} else anteriorN = anteriorN.getNext(); // Si no, se prueba con el siguiente nodo
 	            }
 	            actual = actual.getNext(); // Se actualiza el valor actual al siguiente nodo en la lista
                 // El siguiente nodo, después del while, se sabe que no está repetido o es null
@@ -135,7 +124,13 @@ public class SinglyLinkedList<T extends Comparable<T>> {
 
     // Inserta un nuevo nodo en una posicion especifica de la lista
     public void insertNth(T data, int position) {
-
+    	if (position > size) return; // Si la posicion es mayor al tamano entonces no cambiar nada
+    	if (position == 0) {addFirst(data); return;} // Si se quiere poner al comienzo, llamar a la funcion ya creada
+    	Node<T> anterior = first; // Si la posicion es mayor a 0, empezar por el primer nodo
+    	for (int i = 1; i < position; i++)
+    		anterior = anterior.getNext(); // E ir cambiandolo hasta llegar al anterior al cual se desea insertar
+    	Node<T> nuevo = new Node<T>(data, anterior.getNext()); // Crear el nodo dandole como next el nodo que ocupa su lugar
+    	anterior.setNext(nuevo); // Y setearlo como next del anterior
     }
 
     // Elimina el nodo de una posicion especifica de la lista
