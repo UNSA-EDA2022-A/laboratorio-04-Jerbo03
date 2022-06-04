@@ -103,23 +103,17 @@ public class SinglyLinkedList<T extends Comparable<T>> {
     public void deleteDuplicates() {
         if (isEmpty() || size == 1) return;
         else {
+	    HashMap<T, Integer> dict = new HashMap<T, Integer>();
             Node<T> actual = first;
-            // Busca el valor del nodo 2 en adelante
+	    dict.put(first.getValue(),0);
             while (actual != null) { // Si el valor actual es null entonces ya terminamos de leer la lista
-                Node<T> anteriorN = first; // Empezando por el primero
-                /* Compara que:
-                 * 1. No lleguemos al final de la lista para poder evaluar el nodo siguiente
-                 * 2. Que los objetos que estamos comparando no sean el mismo */
-                while (actual.getNext() != null && actual.getNext() != anteriorN) {
-                    // Si el valor de alguno de los elementos anteriores al nodo siguiente del actual es igual al este
-                    if(actual.getNext().getValue().compareTo(anteriorN.getValue()) == 0) {
-                		actual.setNext(actual.getNext().getNext()); // Se "borra"
-                		anteriorN = first; // Se reinicia la comparación
-			    	size--; // Y se actualiza el tamaño de lista
-                	} else anteriorN = anteriorN.getNext(); // Si no, se prueba con el siguiente nodo
-	            }
-	            actual = actual.getNext(); // Se actualiza el valor actual al siguiente nodo en la lista
-                // El siguiente nodo, después del while, se sabe que no está repetido o es null
+		if (dict.get(actual.getNext().getValue()) != null) {
+			actual.setNext(actual.getNext().getNext());
+			size--;
+		} else {
+			dict.put(actual.getNext().getValue(), 0);
+			actual = actual.getNext();
+		}
             }
         }
     }
