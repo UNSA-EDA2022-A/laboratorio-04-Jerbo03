@@ -113,7 +113,8 @@ public class SinglyLinkedList<T extends Comparable<T>> {
                     // Si el valor de alguno de los elementos anteriores al nodo siguiente del actual es igual al este
                     if(actual.getNext().getValue().compareTo(anteriorN.getValue()) == 0) {
                 		actual.setNext(actual.getNext().getNext()); // Se "borra"
-                		anteriorN = first; // Y reinicia la comparación
+                		anteriorN = first; // Se reinicia la comparación
+			    	size--; // Y se actualiza el tamaño de lista
                 	} else anteriorN = anteriorN.getNext(); // Si no, se prueba con el siguiente nodo
 	            }
 	            actual = actual.getNext(); // Se actualiza el valor actual al siguiente nodo en la lista
