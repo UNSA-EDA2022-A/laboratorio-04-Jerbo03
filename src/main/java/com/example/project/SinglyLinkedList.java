@@ -111,7 +111,7 @@ public class SinglyLinkedList<T extends Comparable<T>> {
                 // Compara el valor siguiente al actual con los anteriores en la lista
                 Node<T> anteriorN = first; // Empezando por el primero
                 int j = 0; // Contador
-                while (j <= elem) {
+                while (j < elem) {
                     if(actual.getNext().getValue().compareTo(anteriorN.getValue()) != 0) { // Si son diferentes
                         anteriorN = anteriorN.getNext(); // Compara con el siguiente
                         j++; } // Cuenta una comparacin realizada
@@ -120,6 +120,7 @@ public class SinglyLinkedList<T extends Comparable<T>> {
                         break; } // Y se sale del bucle
                 }
                 actual = actual.getNext(); // Se actualiza el valor actual al siguiente nodo en la lista
+                if (actual == null) return; // Si ya se llegó al útlimo, salir
                 elem++; // Y el numero de elementos a comparar
             }
         }
