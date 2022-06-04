@@ -109,7 +109,7 @@ public class SinglyLinkedList<T extends Comparable<T>> {
             // Busca el valor del nodo 2 en adelante
             for (int i = 1; i < size-1; i++) { // No contamos el ultimo valor porque si se salta el penultimo apuntara a null y no podra compararse su siguiente
                 // Compara el valor siguiente al actual con los anteriores en la lista
-                Node<T> anteriorN = getFirst(); // Empezando por el primero
+                Node<T> anteriorN = first; // Empezando por el primero
                 int j = 0; // Contador
                 while (j < elem) { // Hasta uno anterior al que se encuentra
                     if(actual.getNext().getValue().compareTo(anteriorN.getValue) != 0) { // Si son diferentes
