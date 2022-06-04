@@ -102,19 +102,16 @@ public class SinglyLinkedList<T extends Comparable<T>> {
     // Elimina aquellos nodos de la lista que esten duplicados
     public void deleteDuplicates() {
         if (isEmpty() || size == 1) return;
-        else {
-	    HashMap<T, Integer> dict = new HashMap<T, Integer>();
-            Node<T> actual = first;
-	    dict.put(first.getValue(),0);
-            while (actual.getNext() != null) { // Si el valor actual es null entonces ya terminamos de leer la lista
-		if (dict.get(actual.getNext().getValue()) != null) {
-			actual.setNext(actual.getNext().getNext());
-			size--;
-		} else {
-			dict.put(actual.getNext().getValue(), 0);
-			actual = actual.getNext();
-		}
-            }
+        HashMap<T, Integer> dict = new HashMap<T, Integer>();
+        Node<T> actual = first;
+        dict.put(first.getValue(),0);
+        while (actual.getNext() != null) { // Si el valor actual es null entonces ya terminamos de leer la lista
+	    if (dict.get(actual.getNext().getValue()) != null) { // Buscar valor en el diccionario
+		actual.setNext(actual.getNext().getNext()); // Cambio de next
+    		size--; // Actualizar el valor del tamaño
+	    } else {
+		dict.put(actual.getNext().getValue(), 0); // Anadir nuevo valor al diccionario
+		actual = actual.getNext(); } // Cambio al siguiente nodo
         }
     }
 
