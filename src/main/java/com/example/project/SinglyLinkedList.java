@@ -104,23 +104,31 @@ public class SinglyLinkedList<T extends Comparable<T>> {
             return;
         else {
             Node<T> actual = first;
-            int elem = 1; // Numero de elementos a comparar, como evalueamos el siguiente al primero, siempre se evalua 1 elemento como minimo
             
             // Busca el valor del nodo 2 en adelante
-            for (int i = 1; i < size-1; i++) { // No contamos el ultimo valor porque si se salta el penultimo apuntara a null y no podra compararse su siguiente
-                // Compara el valor siguiente al actual con los anteriores en la lista
+            while (actual != null) { // Si el valor actual es null entonces ya terminamos de leer la lista
+
                 Node<T> anteriorN = first; // Empezando por el primero
-                int j = 0; // Contador
-                while (j < elem) {
-                    if(actual.getNext().getValue().compareTo(anteriorN.getValue()) != 0) { // Si son diferentes
-                        anteriorN = anteriorN.getNext(); // Compara con el siguiente
-                        j++; } // Cuenta una comparacin realizada
-                    else {
-                        actual.setNext(actual.getNext().getNext()); // Si ya esta repetido, el siguiente del actual sera el siguiente del siguiente
-                        break; } // Y se sale del bucle
-                }
-                actual = actual.getNext(); // Se actualiza el valor actual al siguiente nodo en la lista
-                elem++; // Y el numero de elementos a comparar
+                
+                /* Compara que:
+                 * 1. No lleguemos al final de la lista para poder evaluar el nodo siguiente
+                 * 2. Que los objetos que estamos comparando no sean el mismo
+                */
+                while (actual.getNext() != null && actual.getNext() != anteriorN) {
+                    
+                    // Si el valor de alguno de los elementos anteriores al nodo siguiente del actual es igual al este
+                    if(actual.getNext().getValue().compareTo(anteriorN.getValue()) == 0) {
+                        // Se "borra"
+                		actual.setNext(actual.getNext().getNext());
+                        // Y reinicia la comparación
+                		anteriorN = first;
+                	} else {
+                        // Si no, se prueba con el siguiente nodo
+                		anteriorN = anteriorN.getNext();
+                	}
+	            }
+	            actual = actual.getNext(); // Se actualiza el valor actual al siguiente nodo en la lista
+                // El siguiente nodo, después del while, se sabe que no está repetido o es null
             }
         }
     }
