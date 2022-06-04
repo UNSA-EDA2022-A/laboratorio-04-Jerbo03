@@ -106,7 +106,7 @@ public class SinglyLinkedList<T extends Comparable<T>> {
 	    HashMap<T, Integer> dict = new HashMap<T, Integer>();
             Node<T> actual = first;
 	    dict.put(first.getValue(),0);
-            while (actual != null) { // Si el valor actual es null entonces ya terminamos de leer la lista
+            while (actual.getNext() != null) { // Si el valor actual es null entonces ya terminamos de leer la lista
 		if (dict.get(actual.getNext().getValue()) != null) {
 			actual.setNext(actual.getNext().getNext());
 			size--;
