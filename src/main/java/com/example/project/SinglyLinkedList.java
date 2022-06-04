@@ -106,18 +106,18 @@ public class SinglyLinkedList<T extends Comparable<T>> {
         } else {
             Node<T> actual = first;
             // Diccionario con los valores distintos en la lista
-            // Uso un diccionario porque su complejidad de búsqueda es constante
+            // Uso un diccionario porque su complejidad de busqueda es constante
             HashMap<T, Integer> diccionario = new HashMap<>();
-            // Solo importa el "key" de cada entrada en el diccionario, así que su valor puede ser 0, nulo o cualquiera, no se usará
+            // Solo importa el "key" de cada entrada en el diccionario, asi que su valor puede ser 0, nulo o cualquiera, no se usara
             diccionario.put(actual.getValue(),0); // Introducimos el valor primero en la lista
-            for (int i = 0; i < size-1; i++) { // No contamos el último valor porque si se salta el penúltimo apuntará a null y no podrá compararse su siguiente
+            for (int i = 0; i < size-1; i++) { // No contamos el ultimo valor porque si se salta el penultimo apuntara a null y no podra compararse su siguiente
                 // Busca el valor del nodo 2 en adelante en el diccionario
                 if (diccionario.get(actual.getNext().getValue()) != null) {
-                    // Si el valor está, lo devolverá (o sea, not null)
-                    actual.setNext(actual.getNext().getNext()); // Entonces, el siguiente del nodo actual cambiará al siguiente siguiente
+                    // Si el valor esta, lo devolvera (o sea, not null)
+                    actual.setNext(actual.getNext().getNext()); // Entonces, el siguiente del nodo actual cambiara al siguiente siguiente
                     size--; } // Y el tamaño de la lista se reducira en 1
-                else { // Si el valor no está en el diccionario
-                    diccionario.put(actual.getNext().getValue(),0); } // Se agregará para futuras comparaciones
+                else { // Si el valor no esta en el diccionario
+                    diccionario.put(actual.getNext().getValue(),0); } // Se agregara para futuras comparaciones
                 actual = actual.getNext(); // Se actualiaza el valor actual al siguiente nodo en la lista
             }
         }
